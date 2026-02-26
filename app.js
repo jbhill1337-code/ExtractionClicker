@@ -24,6 +24,76 @@ const app = initializeApp(firebaseConfig);
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+// Ensure you have these Firestore functions imported at the top of your file alongside your existing imports:
+// import { getFirestore, doc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+// DOM Elements
+const healthText = document.getElementById('health-text');
+const healthBar = document.getElementById('health-bar');
+const timerText = document.getElementById('timer-text');
+const lootText = document.getElementById('loot-text');
+const attackBtn = document.getElementById('attack-btn');
+const extractBtn = document.getElementById('extract-btn');
+
+// Local Player State
+let localLoot = 0;
+let hasExtracted = false;
+const maxHealth = 10000;
+
+// Reference to the boss document in your existing Firestore database
+// (Assumes you have a collection called "gameData" and a document called "boss")
+const bossRef = doc(db, "gameData", "boss");
+
+// 1. Update UI Function
+function updateUI(currentHealth) {
+    healthText.innerText = currentHealth;
+    const healthPercentage = (currentHealth / maxHealth) * 100;
+    healthBar.style.width = `${Math.max(0, healthPercentage)}%`;
+}
+
+// 2. Real-Time Sync: Listen to the Boss's Health
+onSnapshot(bossRef, (docSnap) => {
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        updateUI(data.health);
+        
+        // Optional: Handle boss defeat
+        if (data.health <= 0) {
+            attackBtn.disabled = true;
+            attackBtn.innerText = "Boss Defeated!";
+        }
+    }
+});
+
+// 3. Attack Logic (Work)
+attackBtn.addEventListener('click', async () => {
+    if (hasExtracted) return; // Can't work if clocked out
+
+    // Increase player's local salary (loot)
+    localLoot += 10;
+    lootText.innerText = localLoot;
+
+    // Push damage to Firebase
+    try {
+        await updateDoc(bossRef, {
+            health: increment(-10) // Subtracts 10 from the boss's current health
+        });
+    } catch (error) {
+        console.error("Error updating boss health: ", error);
+    }
+});
+
+// 4. Extract Logic (Clock Out)
+extractBtn.addEventListener('click', () => {
+    if (hasExtracted) return;
+    
+    hasExtracted = true;
+    attackBtn.disabled = true;
+    extractBtn.innerText = "Successfully Clocked Out";
+    
+    alert(`Extraction successful! You secured $${localLoot} in salary.`);
+});
+
 // 4. Game Variables & HTML Elements
 let myLootCount = 0;
 let hasExtracted = false;
@@ -103,3 +173,4 @@ extractBtn.addEventListener('click', () => {
     
     alert(`You safely clocked out with ${myLootCount} items! They are now in your permanent stash.`);
 });
+
