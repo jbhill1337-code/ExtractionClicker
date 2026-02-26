@@ -8,24 +8,32 @@
 </head>
 <body>
     <div class="game-container">
-        <header class="raid-header">
-            <h1>RAID TIMER: <span id="timer">05:00</span></h1>
-            <h2>Global Boss Health: <span id="boss-health">100%</span></h2>
+        <header>
+            <h1>Corporate Extraction</h1>
         </header>
-
-        <main class="combat-zone">
-            <div id="boss-sprite" class="boss-idle">
-                <p>REGIONAL MANAGER</p>
+        
+        <main>
+            <div id="boss-container">
+                <h2>The Boss</h2>
+                <div class="health-bar-bg">
+                    <div id="health-bar" class="health-bar-fill"></div>
+                </div>
+                <p>Health: <span id="health-text">10000</span> / 10000</p>
             </div>
-            <button id="attack-btn">FILE COMPLAINT (ATTACK)</button>
+
+            <div id="timer-container">
+                <h3>Time to Extraction: <span id="timer-text">60</span>s</h3>
+            </div>
+
+            <div class="actions">
+                <button id="attack-btn" class="vapor-btn">Work (Attack!)</button>
+                <button id="extract-btn" class="vapor-btn">Clock Out (Extract)</button>
+            </div>
+            
+            <div id="stats-container">
+                <p>Salary Secured: $<span id="loot-text">0</span></p>
+            </div>
         </main>
-
-        <footer class="player-dashboard">
-            <div class="inventory-preview">
-                <h3>Backpack: <span id="loot-count">0</span> items</h3>
-            </div>
-            <button id="extract-btn" class="emergency-button">CLOCK OUT (EXTRACT)</button>
-        </footer>
     </div>
 
     <script type="module" src="app.js"></script>
