@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Extraction</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="raid-header">
+            <h1>RAID TIMER: <span id="timer">05:00</span></h1>
+            <h2>Global Boss Health: <span id="boss-health">100%</span></h2>
+        </header>
+
+        <main class="combat-zone">
+            <div id="boss-sprite" class="boss-idle">
+                <p>REGIONAL MANAGER</p>
+            </div>
+            <button id="attack-btn">FILE COMPLAINT (ATTACK)</button>
+        </main>
+
+        <footer class="player-dashboard">
+            <div class="inventory-preview">
+                <h3>Backpack: <span id="loot-count">0</span> items</h3>
+            </div>
+            <button id="extract-btn" class="emergency-button">CLOCK OUT (EXTRACT)</button>
+        </footer>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

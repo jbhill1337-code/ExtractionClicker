@@ -1,0 +1,145 @@
+/* Import a retro 2000s terminal font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* Base Reset & CRT Background */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0b001a;
+    background-image: 
+        linear-gradient(rgba(11, 0, 26, 0.8) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11, 0, 26, 0.8) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: center center;
+    color: #01cdfe; /* Vaporwave Cyan */
+    font-family: 'VT323', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* CRT Scanline Overlay */
+body::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+/* Main Game Window */
+.game-container {
+    background: rgba(20, 0, 40, 0.9);
+    border: 3px solid #ff71ce; /* Hot Pink Border */
+    box-shadow: 0 0 15px #ff71ce, inset 0 0 15px #ff71ce;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    padding: 20px;
+    z-index: 10;
+    position: relative;
+}
+
+/* Header & Timers */
+.raid-header h1 {
+    font-size: 2.5rem;
+    color: #ff71ce;
+    text-shadow: 2px 2px 0px #01cdfe;
+    margin-bottom: 10px;
+}
+
+.raid-header h2 {
+    font-size: 1.5rem;
+    color: #fffb96; /* Pale Yellow */
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #01cdfe;
+    padding-bottom: 10px;
+}
+
+/* The Combat Zone (Click Area) */
+.combat-zone {
+    margin-bottom: 20px;
+}
+
+#boss-sprite {
+    height: 150px;
+    width: 150px;
+    margin: 0 auto 20px auto;
+    background: #05f9e2;
+    border: 2px solid #fff;
+    box-shadow: 0 0 20px #05f9e2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0b001a;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: crosshair;
+    transition: transform 0.1s;
+}
+
+#boss-sprite:active {
+    transform: scale(0.95);
+    background: #ff71ce;
+    box-shadow: 0 0 30px #ff71ce;
+}
+
+/* Buttons */
+button {
+    font-family: 'VT323', monospace;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease-in-out;
+}
+
+#attack-btn {
+    background: #ff71ce;
+    color: #0b001a;
+    box-shadow: 4px 4px 0px #01cdfe;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#attack-btn:active {
+    box-shadow: 0px 0px 0px #01cdfe;
+    transform: translate(4px, 4px);
+}
+
+#extract-btn {
+    background: #01cdfe;
+    color: #0b001a;
+    box-shadow: 4px 4px 0px #ff71ce;
+    width: 100%;
+}
+
+#extract-btn:active {
+    box-shadow: 0px 0px 0px #ff71ce;
+    transform: translate(4px, 4px);
+}
+
+/* Player Dashboard */
+.player-dashboard {
+    border-top: 1px solid #ff71ce;
+    padding-top: 15px;
+}
+
+.inventory-preview h3 {
+    font-size: 1.2rem;
+    color: #b967ff; /* Synthwave Purple */
+    margin-bottom: 15px;
+}
